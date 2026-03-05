@@ -180,7 +180,7 @@ function renderCartContents(cart, products) {
     el.innerHTML = el.innerHTML + `
       <li class="product-card">
         <a href="/products/${product.slug}">
-          <img src="${product.imagePath}" alt="${product.name}" />
+          <img src="${product.imagePath}" alt="${product.name}" loading="lazy"/>
           <h3>${product.name}</h3>
         </a>
         <div class="flex align-center">
