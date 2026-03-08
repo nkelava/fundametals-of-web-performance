@@ -47,7 +47,7 @@
         <a href="/" class="site-logo flex align-center flex-gap-10">
           <div class="site-icon">
             <img
-              src="/assets/img/devstickers-logo.png"
+              src="/assets/img/webp/devstickers-logo.webp"
               alt="Developer Stickers Online"
               loading="lazy"
             />
@@ -72,18 +72,32 @@
 
       <section class="hero">
         <div class="illustration">
-          <img
-            class="desktop"
-            src="/assets/img/hero-desktop.png"
-            alt="Developer Stickers"
-            fetchpriority="high"
-          />
-          <img
-            class="mobile"
-            src="/assets/img/hero-mobile.png"
-            alt="Developer Stickers"
-            fetchpriority="high"
-          />
+          <picture class="illustration">
+            <source
+              media="(max-width: 720px)"
+              srcset="
+                /assets/img/webp/hero-mobile-360.webp   360w,
+                /assets/img/webp/hero-mobile-720.webp   720w,
+                /assets/img/webp/hero-mobile-1400.webp 1400w
+              "
+            />
+            <source
+              media="(min-width: 721px)"
+              srcset="
+                /assets/img/webp/hero-desktop-720.webp   720w,
+                /assets/img/webp/hero-desktop-1400.webp 1400w,
+                /assets/img/webp/hero-desktop-2800.webp 2800w
+              "
+            />
+            <img
+              src="/assets/img/webp/hero-desktop-2800.webp"
+              alt="Developer Stickers Online"
+              fetchpriorty="high"
+              height="1200"
+              width="2800"
+              loading="lazy"
+            />
+          </picture>
         </div>
         <!-- NOTE: As of Chrome 129, we can trick it by hiding the LCP element behind a transparent element -->
         <!-- <div class="overlay"></div> -->
@@ -104,7 +118,7 @@
           <div class="product-card">
             <a href="/products/fast-sloth-sticker" class="mb-20">
               <img
-                src="/assets/img/fast-sloth-sticker.png"
+                src="/assets/img/webp/fast-sloth-sticker.webp"
                 alt="Fast Sloth Sticker"
                 loading="lazy"
               />
@@ -127,7 +141,7 @@
           <div class="product-card">
             <a href="/products/good-day-to-debug-sticker" class="mb-20">
               <img
-                src="/assets/img/good-day-to-debug-sticker.png"
+                src="/assets/img/webp/good-day-to-debug-sticker.webp"
                 alt="Good Day to Debug Sticker"
                 loading="lazy"
               />
@@ -149,7 +163,7 @@
           <div class="product-card">
             <a href="/products/js-happens-sticker" class="mb-20">
               <img
-                src="/assets/img/js-happens-sticker.png"
+                src="/assets/img/webp/js-happens-sticker.webp"
                 alt="JavaScript Happens"
                 loading="lazy"
               />
@@ -171,7 +185,7 @@
           <div class="product-card">
             <a href="/products/yo-dawg-sticker" class="mb-20">
               <img
-                src="/assets/img/yo-dawg-sticker.png"
+                src="/assets/img/webp/yo-dawg-sticker.webp"
                 alt="Yo Dawg Sticker"
                 loading="lazy"
               />
@@ -195,7 +209,7 @@
         <div class="callout">
           <picture>
             <img
-              src="/assets/img/callout-1.png"
+              src="/assets/img/webp/callout-1.webp"
               alt="Express Your Developer Personality"
               loading="lazy"
             />
@@ -214,7 +228,7 @@
         <div class="callout">
           <picture>
             <img
-              src="/assets/img/callout-2.png"
+              src="/assets/img/webp/callout-2.webp"
               alt="High-Quality Stickers Built to Last"
               loading="lazy"
             />
@@ -234,7 +248,7 @@
         <div class="callout">
           <picture>
             <img
-              src="/assets/img/callout-3.png"
+              src="/assets/img/webp/callout-3.webp"
               alt="Perfect for Gifting"
               loading="lazy"
             />
