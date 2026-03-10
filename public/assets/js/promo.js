@@ -10,18 +10,17 @@
  * 3. Shifting layouts
  */
 window.addEventListener("DOMContentLoaded", async () => {
-
   const productsResp = await fetch(`${API_BASE_URL}/api/products`);
   const products = await productsResp.json();
 
   const el = document.getElementById("promo-banner");
 
-  let innerHTML = "<div class='container'><div class='promo-list flex-column'>"
+  let innerHTML = "<div class='container'><div class='promo-list flex-column'>";
   products.forEach((product) => {
     innerHTML += `
-      <div class="product-card ${product.isPromo ? 'promo' : ''}">
+      <div class="product-card ${product.isPromo ? "promo" : ""}">
         <a href="/products/${product.slug}">
-          <img src="${STATIC_BASE_URL}${product.imagePath}?promo" alt="${product.name}" ${product.isPromo ? 'onload="showPromo()"' : ''} loading="lazy"/>
+          <img src="${STATIC_BASE_URL}${product.imagePath}?promo" alt="${product.name}" ${product.isPromo ? 'onload="showPromo()"' : ""} loading="lazy" height="1024" width="1024"/>
           <div class="product-copy flex-column">
             <h2>Flash Sale!!</h2>
             <h3>${product.name}</h3>
@@ -32,7 +31,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         </div>
       </div>`;
   });
-  innerHTML += "</div>"
+  innerHTML += "</div>";
   innerHTML += "</div>";
   el.innerHTML = innerHTML;
 
@@ -41,6 +40,5 @@ window.addEventListener("DOMContentLoaded", async () => {
     setTimeout(() => {
       el.querySelector(".product-card.promo").classList.add("expand");
     }, 2000);
-  }
-
+  };
 });

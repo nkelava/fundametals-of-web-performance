@@ -12,7 +12,6 @@ header {
 
   .site-logo {
     .site-icon {
-
       img {
         width: 100%;
         height: auto;
@@ -71,14 +70,15 @@ footer {
     color: var(--color-surface-600);
     transition: color 100ms ease-in-out;
     text-decoration: underline;
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
       color: var(--color-primary-400);
     }
   }
-  p+p {
+  p + p {
     margin-top: 10px;
   }
-
 }
 
 main {
@@ -102,7 +102,7 @@ main {
         display: none;
       }
 
-      @media(min-width: 900px) {
+      @media (min-width: 900px) {
         &.mobile {
           display: none;
         }
@@ -116,9 +116,19 @@ main {
   .overlay {
     position: absolute;
     inset: 0 0 0 0;
-    background-image: linear-gradient(180deg, transparent, transparent 20%, var(--color-surface-100) 80%);
-    @media(min-width: 900px) {
-      background-image: linear-gradient(90deg, transparent, transparent 20%, var(--color-surface-100) 80%);
+    background-image: linear-gradient(
+      180deg,
+      transparent,
+      transparent 20%,
+      var(--color-surface-100) 80%
+    );
+    @media (min-width: 900px) {
+      background-image: linear-gradient(
+        90deg,
+        transparent,
+        transparent 20%,
+        var(--color-surface-100) 80%
+      );
     }
   }
 
@@ -144,12 +154,8 @@ main {
     }
     p {
       font-size: 1.2em;
-
     }
-
-
   }
-
 }
 
 .product-grid {
@@ -215,8 +221,12 @@ main {
     margin-top: auto;
   }
 
-  transition: box-shadow, transform 200ms ease-in-out;
-  &:hover, &:active, &:focus {
+  transition:
+    box-shadow,
+    transform 200ms ease-in-out;
+  &:hover,
+  &:active,
+  &:focus {
     transform: scale(1.01);
     box-shadow: 0 0 10px 2px var(--color-primary-100);
   }
@@ -228,7 +238,6 @@ main {
   margin: 40px 0;
 
   picture {
-
     img {
       width: 100%;
       height: auto;
@@ -254,7 +263,7 @@ main {
     }
   }
 
-  @media(min-width: 720px) {
+  @media (min-width: 720px) {
     padding: 20px 0;
     flex-direction: row;
 
@@ -290,7 +299,7 @@ main {
     }
   }
 
-  @media(min-width: 720px) {
+  @media (min-width: 720px) {
     flex-direction: row;
     gap: 20px;
     &:nth-child(even) {
@@ -330,7 +339,9 @@ main.cart {
         width: auto;
       }
     }
-    &:hover, &:active, &:focus {
+    &:hover,
+    &:active,
+    &:focus {
       transform: none;
       box-shadow: none;
     }
@@ -347,7 +358,6 @@ main.cart {
       opacity: 1;
       /* transition: max-height 2s ease-in,
                   opacity 1s ease-out 1s; */
-
     }
   }
 
@@ -357,14 +367,12 @@ main.cart {
       flex-direction: row;
     }
   }
-
 }
-
 
 /* #promo-banner {
   height: 260px;
 } */
-/*
+
 #promo-banner {
   position: absolute;
   top: 60px;
@@ -372,4 +380,3 @@ main.cart {
   right: 0;
   z-index: 1;
 }
- */
