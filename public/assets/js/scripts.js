@@ -9,7 +9,6 @@
  * 1.
  */
 window.addEventListener("DOMContentLoaded", async () => {
-
   const { user, cart, products } = await getDataRESTfully();
 
   /**
@@ -26,10 +25,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   document.body.addEventListener("click", async (evt) => {
     const el = evt.target;
     if (el.matches("button.add-to-cart")) {
-      const productId = parseInt(el.getAttribute("data-product-id"), 10);
-      updateAnalytics();
-      await addToCart(user, productId);
-
       /**
        * TODO Performance Opportunity
        *
@@ -37,33 +32,34 @@ window.addEventListener("DOMContentLoaded", async () => {
        * we don't provide much user feedback. This makes interactivity feel
        * sluggish.
        */
-      // const productId = parseInt(el.getAttribute("data-product-id"), 10);
-      // requestAnimationFrame(() => {
-      //   el.textContent = "Added!";
-      //   el.setAttribute("disabled", "disabled");
-      // });
-      // setTimeout(() => {
-      //   updateAnalytics();
-      // });
-      // await addToCart(user, productId);
-      // setTimeout(() => {
-      //   el.textContent = "Add to Cart";
-      //   el.removeAttribute("disabled");
-      // }, 1500);
-    }
-    else if (el.matches("button.remove-from-cart")) {
+      const productId = parseInt(el.getAttribute("data-product-id"), 10);
+
+      requestAnimationFrame(() => {
+        el.textContent = "Added!";
+        el.setAttribute("disabled", "disabled");
+      });
+
+      setTimeout(() => {
+        updateAnalytics();
+      }, 0);
+
+      await addToCart(user, productId);
+
+      setTimeout(() => {
+        el.textContent = "Add to Cart";
+        el.removeAttribute("disabled");
+      }, 1500);
+    } else if (el.matches("button.remove-from-cart")) {
       const cartItemId = el.getAttribute("data-cart-item-id");
       await removeFromCart(user, cartItemId, products);
-    }
-    else if (el.matches("button.clear-cart")) {
+    } else if (el.matches("button.clear-cart")) {
       await clearCart(user);
     }
   });
-
 });
 
 async function getCart(userId) {
-  let resp = await fetch(`${API_BASE_URL}/api/users/${userId}/cart`)
+  let resp = await fetch(`${API_BASE_URL}/api/users/${userId}/cart`);
   return await resp.json();
 }
 
@@ -77,7 +73,6 @@ async function getProducts(userId) {
  * Sequential calls for single entities.
  */
 async function getDataRESTfully() {
-
   async function getUser() {
     let userId = getLocalUserId();
     if (!userId) {
@@ -98,7 +93,7 @@ async function getDataRESTfully() {
     let createUserResp = await fetch(`${API_BASE_URL}/api/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name })
+      body: JSON.stringify({ name }),
     });
 
     const location = createUserResp.headers.get("Location");
@@ -112,14 +107,14 @@ async function getDataRESTfully() {
     return user;
   }
 
-  let user = await getUser() ?? await createUser("unknown");
+  let user = (await getUser()) ?? (await createUser("unknown"));
   let cartTask = getCart(user.id);
   let productsTask = getProducts(user.id);
 
   return {
     user,
     cart: await cartTask,
-    products: await productsTask
+    products: await productsTask,
   };
 }
 
@@ -132,7 +127,7 @@ async function addToCart(user, productId) {
   const resp = await fetch(`${API_BASE_URL}/api/users/${userId}/cart`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ productId, userId })
+    body: JSON.stringify({ productId, userId }),
   });
   const cart = await resp.json();
   renderCartCount(cart);
@@ -143,9 +138,12 @@ async function addToCart(user, productId) {
  * Removes a cartItem from the user's cart, then updates the UI.
  */
 async function removeFromCart(user, cartItemId, products) {
-  const resp = await fetch(`${API_BASE_URL}/api/users/${user.id}/cart/${cartItemId}`, {
-    method: "DELETE"
-  });
+  const resp = await fetch(
+    `${API_BASE_URL}/api/users/${user.id}/cart/${cartItemId}`,
+    {
+      method: "DELETE",
+    },
+  );
   const cart = await resp.json();
   renderCartCount(cart);
   renderCartContents(cart, products);
@@ -156,9 +154,9 @@ async function removeFromCart(user, cartItemId, products) {
  * Clears the entire user cart and updates the UI
  */
 async function clearCart(user) {
-  const userId = user.id
+  const userId = user.id;
   const resp = await fetch(`${API_BASE_URL}/api/users/${userId}/cart`, {
-    method: "DELETE"
+    method: "DELETE",
   });
   const cart = await resp.json();
   renderCartCount(cart);
@@ -172,12 +170,16 @@ async function clearCart(user) {
  */
 function renderCartContents(cart, products) {
   const el = document.getElementById("cart-items");
-  if (!el) { return; }
+  if (!el) {
+    return;
+  }
 
   el.innerHTML = "";
   cart.forEach((cartItem) => {
     const product = products.find((p) => p.id === cartItem.productId);
-    el.innerHTML = el.innerHTML + `
+    el.innerHTML =
+      el.innerHTML +
+      `
       <li class="product-card">
         <a href="/products/${product.slug}">
           <img src="${product.imagePath}" alt="${product.name}" loading="lazy"/>
@@ -187,7 +189,7 @@ function renderCartContents(cart, products) {
           <button type="button" class="remove-from-cart" data-cart-item-id="${cartItem.id}">Remove</button>
         </div>
       </li>`;
-  })
+  });
 }
 
 /**
@@ -195,7 +197,7 @@ function renderCartContents(cart, products) {
  * Client-side rendering of the number of items in the shopping cart in the header.
  */
 function renderCartCount(cart) {
-  document.getElementById('cart-count').textContent = cart.length;
+  document.getElementById("cart-count").textContent = cart.length;
 }
 
 /**
@@ -211,7 +213,7 @@ function updateAnalytics() {
     phantomEl.appendChild(child);
   }
   performance.mark("analytics_end");
-  performance.measure("analytics", "analytics_start", "analytics_end")
+  performance.measure("analytics", "analytics_start", "analytics_end");
 }
 
 /**
